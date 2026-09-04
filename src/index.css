@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #0D0D0D;
+    color: #E8E6E1;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0D0D0D;
+    color: #E8E6E1;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Custom slim scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0D0D0D;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2D3561;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F5A623;
+  }
+}
+
+/* Layer 2 Amber Grid Pattern (1px lines, 40px grid, opacity 8%, amber color) */
+.hero-amber-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(245, 166, 35, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 166, 35, 0.08) 1px, transparent 1px);
+}
+
+/* Section Dot Grid (radial-gradient dots, 1px, amber 5%, 32px apart) */
+.dot-grid-amber {
+  background-size: 32px 32px;
+  background-image: radial-gradient(circle, rgba(245, 166, 35, 0.05) 1.2px, transparent 1.2px);
+}
+
+/* Blinking terminal cursor */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  animation: cursorBlink 0.9s infinite;
+}
+
+/* Monitor bottom stand trapezoid */
+.monitor-stand-base {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
