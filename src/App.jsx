@@ -8,6 +8,9 @@ import {
   animate,
   AnimatePresence,
 } from 'framer-motion';
+import ExploreDashboard from './components/ExploreDashboard';
+import MineSelectorModal from './components/MineSelectorModal';
+import { preExistingMines, buildCuratedMineTelemetry } from './data/mineRecords';
 
 // ============================================================================
 // HELPER COMPONENT: ANIMATED NUMBER COUNTER (useMotionValue + animate)
@@ -60,7 +63,7 @@ function GlobalProgressBar() {
 // ============================================================================
 // NAVBAR COMPONENT
 // ============================================================================
-function Navbar({ onOpenDemo }) {
+function Navbar({ onOpenDemo, onExplorePlatform }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -112,15 +115,29 @@ function Navbar({ onOpenDemo }) {
               {link.label}
             </a>
           ))}
+          <button
+            onClick={onExplorePlatform}
+            className="text-sm font-medium text-amber hover:text-amber/80 transition-colors duration-200 tracking-wide font-mono"
+          >
+            Live Radar ↗
+          </button>
         </nav>
 
-        {/* CTA Button Right */}
-        <div className="hidden md:block">
+        {/* CTA Buttons Right */}
+        <div className="hidden md:flex items-center gap-3">
+          <motion.button
+            onClick={onExplorePlatform}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-amber text-coal rounded-[8px] hover:bg-amber/90 transition-all font-mono shadow-[0_0_20px_rgba(245,166,35,0.2)]"
+          >
+            Explore Platform →
+          </motion.button>
           <motion.button
             onClick={onOpenDemo}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="px-5 py-2 text-xs font-semibold uppercase tracking-wider text-amber border border-amber rounded-[8px] hover:bg-amber hover:text-coal transition-colors duration-200"
+            className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-offwhite/80 border border-white/[0.15] rounded-[8px] hover:border-amber hover:text-amber transition-colors duration-200 font-mono"
           >
             Request Demo
           </motion.button>
@@ -149,7 +166,7 @@ function Navbar({ onOpenDemo }) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden mt-3 p-5 bg-graphite border border-amber/10 rounded-[8px] space-y-4"
+            className="md:hidden mt-3 p-5 bg-graphite border border-amber/10 rounded-[8px] space-y-3"
           >
             {navLinks.map((link) => (
               <a
@@ -164,9 +181,18 @@ function Navbar({ onOpenDemo }) {
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
+                onExplorePlatform();
+              }}
+              className="w-full py-2.5 text-xs font-semibold uppercase tracking-wider text-coal bg-amber rounded-[8px] font-mono font-bold"
+            >
+              Explore Platform →
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
                 onOpenDemo();
               }}
-              className="w-full py-2.5 text-xs font-semibold uppercase tracking-wider text-coal bg-amber rounded-[8px]"
+              className="w-full py-2.5 text-xs font-semibold uppercase tracking-wider text-offwhite border border-white/[0.15] rounded-[8px] font-mono"
             >
               Request Demo
             </button>
@@ -180,7 +206,7 @@ function Navbar({ onOpenDemo }) {
 // ============================================================================
 // SECTION 1 — HERO (VIDEO 1: hero-bg.mp4)
 // ============================================================================
-function HeroSection({ onOpenDemo, onOpenVideo }) {
+function HeroSection({ onOpenDemo, onOpenVideo, onExplorePlatform }) {
   const heroRef = useRef(null);
   const [videoError, setVideoError] = useState(false);
 
@@ -192,7 +218,7 @@ function HeroSection({ onOpenDemo, onOpenVideo }) {
 
   const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const textOpacity = useTransform(scrollYProgress, [0.7, 1], [1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0.85, 1], [1, 0.4]);
 
   const headlineLines = [
     { text: 'Every Mine.', color: 'text-offwhite', size: 'text-5xl sm:text-7xl lg:text-7xl' },
@@ -227,6 +253,7 @@ function HeroSection({ onOpenDemo, onOpenVideo }) {
 
         {/* Layer 1: Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-[#0D0D0D]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-coal/90" />
 
         {/* Layer 2: Amber Grid Pattern (1px lines, 40px grid, opacity 8%, amber color) */}
         <div className="absolute inset-0 hero-amber-grid pointer-events-none" />
@@ -285,10 +312,10 @@ function HeroSection({ onOpenDemo, onOpenVideo }) {
           className="flex flex-wrap items-center gap-4 mb-14"
         >
           <motion.button
-            onClick={onOpenDemo}
+            onClick={onExplorePlatform}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
-            className="px-7 py-3.5 bg-amber text-coal font-semibold text-sm rounded-[8px] tracking-wide hover:bg-amber/90 transition-colors shadow-[0_0_30px_rgba(245,166,35,0.25)]"
+            className="px-7 py-3.5 bg-amber text-coal font-semibold text-sm rounded-[8px] tracking-wide hover:bg-amber/90 transition-colors shadow-[0_0_30px_rgba(245,166,35,0.25)] font-mono"
           >
             Explore Platform →
           </motion.button>
@@ -347,7 +374,7 @@ function HeroSection({ onOpenDemo, onOpenVideo }) {
 // ============================================================================
 function CrisisSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-40px' });
+  const isInView = useInView(ref, { once: true, margin: '100px 0px 0px 0px', amount: 0.1 });
 
   const painPoints = [
     'Fragmented systems across subsidiaries',
@@ -473,8 +500,8 @@ function HorizontalModulesSection() {
     offset: ['start start', 'end end'],
   });
 
-  // Transform scroll progress 0 -> 1 into horizontal translation 0% -> -78%
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-78%']);
+  // Transform scroll progress 0 -> 1 into horizontal translation 0% -> -68%
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-68%']);
 
   const modules = [
     {
@@ -563,11 +590,15 @@ function HorizontalModulesSection() {
     <section
       id="platform"
       ref={sectionRef}
-      className="relative h-[600vh] bg-coal"
+      className="relative h-[280vh] bg-coal dot-grid-amber"
     >
+      {/* Ambient glowing atmosphere */}
+      <div className="absolute top-1/4 left-1/3 w-[650px] h-[350px] bg-amber/[0.04] blur-[160px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[300px] bg-teal/[0.025] blur-[150px] pointer-events-none rounded-full" />
+
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center px-6 md:px-16">
         {/* Title Pinned Above Cards */}
-        <div className="max-w-7xl mx-auto w-full mb-10">
+        <div className="max-w-7xl mx-auto w-full mb-8">
           <div className="text-xs font-mono text-amber uppercase tracking-widest font-bold mb-2">
             SYSTEM ARCHITECTURE
           </div>
@@ -580,7 +611,7 @@ function HorizontalModulesSection() {
         <div className="w-full overflow-hidden">
           <motion.div
             style={{ x }}
-            className="flex gap-6 pl-4 pr-32"
+            className="flex w-max gap-6 pl-4 pr-32"
           >
             {modules.map((item) => (
               <motion.div
@@ -693,7 +724,7 @@ function HorizontalModulesSection() {
 // ============================================================================
 function AIEngineSection() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const isInView = useInView(sectionRef, { once: true, margin: '60px 0px 0px 0px', amount: 0.1 });
 
   // Typewriter line list
   const terminalLines = [
@@ -712,32 +743,36 @@ function AIEngineSection() {
     if (!isInView) return;
 
     let isMounted = true;
+    let timerId = null;
     let currentLine = 0;
 
     const playSequence = () => {
       if (!isMounted) return;
 
       if (currentLine < terminalLines.length) {
-        setVisibleLines((prev) => [...prev, terminalLines[currentLine]]);
-        const pauseTime = terminalLines[currentLine].pause;
+        const lineToAdd = terminalLines[currentLine];
         currentLine++;
-        setTimeout(playSequence, pauseTime);
+        if (lineToAdd) {
+          setVisibleLines((prev) => [...prev, lineToAdd]);
+        }
+        const pauseTime = lineToAdd?.pause || 600;
+        timerId = setTimeout(playSequence, pauseTime);
       } else {
         // Clear and loop after 2 seconds
-        setTimeout(() => {
+        timerId = setTimeout(() => {
           if (!isMounted) return;
           setVisibleLines([]);
           currentLine = 0;
-          playSequence();
+          timerId = setTimeout(playSequence, 400);
         }, 2000);
       }
     };
 
-    const timer = setTimeout(playSequence, 400);
+    timerId = setTimeout(playSequence, 400);
 
     return () => {
       isMounted = false;
-      clearTimeout(timer);
+      if (timerId) clearTimeout(timerId);
     };
   }, [isInView]);
 
@@ -774,9 +809,11 @@ function AIEngineSection() {
               {/* Typewriter Output */}
               <div className="space-y-2 font-mono text-sm leading-relaxed">
                 {visibleLines.map((line, idx) => (
-                  <div key={idx} className={line.color}>
-                    {line.text}
-                  </div>
+                  line ? (
+                    <div key={idx} className={line.color || 'text-dim'}>
+                      {line.text || ''}
+                    </div>
+                  ) : null
                 ))}
                 {/* Blinking Amber Cursor */}
                 <div className="inline-block text-amber font-bold terminal-cursor">|</div>
@@ -863,9 +900,9 @@ function AIEngineSection() {
 // ============================================================================
 // SECTION 5 — DASHBOARD (VIDEO 2: dashboard.mp4)
 // ============================================================================
-function DashboardSection({ onOpenDemo }) {
+function DashboardSection({ onOpenDemo, onExplorePlatform }) {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { threshold: 0.3, once: true });
+  const isInView = useInView(sectionRef, { once: true, margin: '80px 0px 0px 0px', amount: 0.1 });
   const [videoError, setVideoError] = useState(false);
 
   const bullets = [
@@ -906,14 +943,22 @@ function DashboardSection({ onOpenDemo }) {
             ))}
           </div>
 
-          <div className="pt-4">
+          <div className="pt-4 flex flex-wrap items-center gap-3">
+            <motion.button
+              onClick={onExplorePlatform}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="px-6 py-3 bg-amber text-coal font-semibold text-sm rounded-[8px] tracking-wide hover:bg-amber/90 transition-colors shadow-amber-glow font-mono"
+            >
+              See Live Dashboard →
+            </motion.button>
             <motion.button
               onClick={onOpenDemo}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="px-6 py-3 border border-amber text-amber hover:bg-amber hover:text-coal font-semibold text-sm rounded-[8px] tracking-wide transition-colors"
+              className="px-6 py-3 border border-white/[0.2] text-offwhite font-medium text-sm rounded-[8px] tracking-wide hover:border-amber hover:text-amber transition-colors font-mono"
             >
-              See Live Dashboard →
+              Request Access
             </motion.button>
           </div>
         </div>
@@ -1029,7 +1074,7 @@ function DashboardSection({ onOpenDemo }) {
 // ============================================================================
 function GISMapSection() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
+  const isInView = useInView(sectionRef, { once: true, margin: '60px 0px 0px 0px', amount: 0.1 });
   const [hoveredMine, setHoveredMine] = useState(null);
 
   const mines = [
@@ -1264,8 +1309,12 @@ function PerspectivesSection() {
     <section
       id="perspectives"
       ref={sectionRef}
-      className="relative h-[400vh] bg-graphite"
+      className="relative h-[260vh] bg-graphite dot-grid-amber"
     >
+      {/* Ambient glowing atmosphere */}
+      <div className="absolute top-1/3 right-1/4 w-[600px] h-[350px] bg-amber/[0.04] blur-[160px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-20 left-1/4 w-[500px] h-[300px] bg-teal/[0.025] blur-[150px] pointer-events-none rounded-full" />
+
       <div className="sticky top-0 h-screen w-full flex items-center px-6 md:px-16 overflow-hidden">
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Side: Text Changes per Phase */}
@@ -1430,7 +1479,7 @@ function PerspectivesSection() {
 // ============================================================================
 function ComplianceMeterSection() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
+  const isInView = useInView(sectionRef, { once: true, margin: '60px 0px 0px 0px', amount: 0.1 });
 
   // Circle stroke calculations
   // radius = 120, circumference = 2 * Math.PI * 120 ≈ 754
@@ -1456,7 +1505,7 @@ function ComplianceMeterSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-32 px-6 bg-coal relative overflow-hidden"
+      className="py-32 px-6 bg-coal dot-grid-amber relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         {/* SVG Arc Compliance Dial */}
@@ -1562,7 +1611,7 @@ function TrustBarSection() {
 // ============================================================================
 function CTAAndFooterSection({ onOpenDemo, onOpenVideo }) {
   const ctaRef = useRef(null);
-  const isInView = useInView(ctaRef, { once: true, margin: '-50px' });
+  const isInView = useInView(ctaRef, { once: true, margin: '60px 0px 0px 0px', amount: 0.1 });
 
   return (
     <div className="bg-coal text-offwhite border-t border-white/[0.06]">
@@ -1818,44 +1867,157 @@ function VideoModal({ isOpen, onClose }) {
 }
 
 // ============================================================================
+// ERROR BOUNDARY (Guards against unhandled runtime crashes turning screen black)
+// ============================================================================
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('KhanijAI ErrorBoundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-coal text-offwhite flex flex-col items-center justify-center p-6 text-center font-mono">
+          <div className="p-8 max-w-lg bg-graphite border border-amber/30 rounded-[8px] shadow-2xl space-y-4">
+            <div className="text-amber text-3xl font-bold">⚠ SYSTEM RECOVERY</div>
+            <p className="text-sm text-dim">
+              A temporary runtime synchronization glitch occurred while streaming telemetry.
+            </p>
+            <button
+              onClick={() => {
+                this.setState({ hasError: false });
+                window.location.reload();
+              }}
+              className="px-6 py-2.5 bg-amber text-coal font-bold rounded-[8px] hover:bg-amber/90 transition-colors uppercase text-xs tracking-wider"
+            >
+              Restart Telemetry Engine
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+// ============================================================================
 // MAIN APP COMPONENT
 // ============================================================================
-export default function App() {
+function AppContent() {
+  const [currentView, setCurrentView] = useState(() => {
+    return typeof window !== 'undefined' && window.location.hash === '#dashboard'
+      ? 'dashboard'
+      : 'landing';
+  });
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [mineSelectorOpen, setMineSelectorOpen] = useState(false);
+  const [selectedMine, setSelectedMine] = useState(() => {
+    return buildCuratedMineTelemetry(preExistingMines[0]);
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#dashboard') {
+        setCurrentView('dashboard');
+      } else {
+        setCurrentView('landing');
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleOpenMineSelector = () => {
+    setMineSelectorOpen(true);
+  };
+
+  const handleSelectMine = (mineData) => {
+    setSelectedMine(mineData);
+    setMineSelectorOpen(false);
+    window.location.hash = '#dashboard';
+    setCurrentView('dashboard');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToLanding = () => {
+    window.location.hash = '';
+    setCurrentView('landing');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (currentView === 'dashboard') {
+    return (
+      <>
+        <ExploreDashboard
+          onBackToLanding={navigateToLanding}
+          onOpenDemoModal={() => setDemoModalOpen(true)}
+          selectedMine={selectedMine}
+          onChangeMine={() => setMineSelectorOpen(true)}
+        />
+        <MineSelectorModal
+          isOpen={mineSelectorOpen}
+          onClose={() => setMineSelectorOpen(false)}
+          onSelectMine={handleSelectMine}
+        />
+        <DemoModal isOpen={demoModalOpen} onClose={() => setDemoModalOpen(false)} />
+        <VideoModal isOpen={videoModalOpen} onClose={() => setVideoModalOpen(false)} />
+      </>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-coal text-offwhite font-sans antialiased selection:bg-amber selection:text-coal relative">
+    <div className="min-h-screen bg-coal text-offwhite font-sans antialiased selection:bg-amber selection:text-coal relative overflow-x-clip">
+      {/* Global subtle ambient lighting so background is never a harsh empty void */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-amber/[0.025] blur-[180px] pointer-events-none rounded-full z-0" />
+      <div className="fixed bottom-0 right-0 w-[800px] h-[500px] bg-[#2D3561]/15 blur-[200px] pointer-events-none rounded-full z-0" />
+
       {/* 1. Global Scroll Progress Bar */}
       <GlobalProgressBar />
 
       {/* 2. Top Navbar */}
-      <Navbar onOpenDemo={() => setDemoModalOpen(true)} />
+      <Navbar
+        onOpenDemo={() => setDemoModalOpen(true)}
+        onExplorePlatform={handleOpenMineSelector}
+      />
 
       {/* Main Sections */}
-      <main>
+      <main className="relative z-10">
         {/* Section 1: Hero (with VIDEO 1: hero-bg.mp4) */}
         <HeroSection
           onOpenDemo={() => setDemoModalOpen(true)}
           onOpenVideo={() => setVideoModalOpen(true)}
+          onExplorePlatform={handleOpenMineSelector}
         />
 
         {/* Section 2: The Crisis */}
         <CrisisSection />
 
-        {/* Section 3: Horizontal Scroll Modules (600vh sticky) */}
+        {/* Section 3: Horizontal Scroll Modules (280vh sticky) */}
         <HorizontalModulesSection />
 
         {/* Section 4: AI Engine (Typewriter terminal + cards) */}
         <AIEngineSection />
 
         {/* Section 5: Dashboard (with VIDEO 2: dashboard.mp4 in monitor) */}
-        <DashboardSection onOpenDemo={() => setDemoModalOpen(true)} />
+        <DashboardSection
+          onOpenDemo={() => setDemoModalOpen(true)}
+          onExplorePlatform={handleOpenMineSelector}
+        />
 
         {/* Section 6: GIS Map (Interactive India map + pulsing nodes) */}
         <GISMapSection />
 
-        {/* Section 7: Three Perspectives (Sticky 400vh wrapper) */}
+        {/* Section 7: Three Perspectives (Sticky 260vh wrapper) */}
         <PerspectivesSection />
 
         {/* Section 8: Compliance Meter (SVG dial + stats) */}
@@ -1872,8 +2034,21 @@ export default function App() {
       </main>
 
       {/* Interactive Modals */}
+      <MineSelectorModal
+        isOpen={mineSelectorOpen}
+        onClose={() => setMineSelectorOpen(false)}
+        onSelectMine={handleSelectMine}
+      />
       <DemoModal isOpen={demoModalOpen} onClose={() => setDemoModalOpen(false)} />
       <VideoModal isOpen={videoModalOpen} onClose={() => setVideoModalOpen(false)} />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ErrorBoundary>
+      <AppContent />
+    </ErrorBoundary>
   );
 }
