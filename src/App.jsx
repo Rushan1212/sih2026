@@ -190,11 +190,9 @@ function HeroSection({ onOpenDemo, onOpenVideo }) {
     offset: ['start start', 'end start'],
   });
 
-  const videoScale = useTransform(scrollYProgress, [0, 0.4], [1, 1.2]);
-  const videoOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
-
-  const textY = useTransform(scrollYProgress, [0, 0.3], [0, -120]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const textOpacity = useTransform(scrollYProgress, [0.7, 1], [1, 0]);
 
   const headlineLines = [
     { text: 'Every Mine.', color: 'text-offwhite', size: 'text-5xl sm:text-7xl lg:text-7xl' },
@@ -209,7 +207,7 @@ function HeroSection({ onOpenDemo, onOpenVideo }) {
     >
       {/* VIDEO 1 — HERO BACKGROUND */}
       <motion.div
-        style={{ scale: videoScale, opacity: videoOpacity }}
+        style={{ scale: videoScale }}
         className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden"
       >
         {!videoError ? (
@@ -349,7 +347,7 @@ function HeroSection({ onOpenDemo, onOpenVideo }) {
 // ============================================================================
 function CrisisSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-40px' });
 
   const painPoints = [
     'Fragmented systems across subsidiaries',
