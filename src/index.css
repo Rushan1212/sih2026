@@ -13,6 +13,7 @@
     background-color: #0D0D0D;
     color: #E8E6E1;
     overflow-x: hidden;
+    overflow-x: clip;
     font-family: 'Inter', sans-serif;
   }
 
@@ -60,6 +61,19 @@
 /* Monitor bottom stand trapezoid */
 .monitor-stand-base {
   clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+}
+
+/* 3D Antigravity Spatial Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
 }
 
 /* Respect user's motion preferences */
