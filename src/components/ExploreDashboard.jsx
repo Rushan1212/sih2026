@@ -34,6 +34,7 @@ import {
   BarChart3,
   Waves,
   Clock,
+  Camera,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { soundManager } from '../utils/sound';
@@ -620,6 +621,21 @@ export default function ExploreDashboard({ onBackToLanding, onOpenDemoModal, sel
               title={muted ? 'Unmute tactical audio' : 'Mute tactical audio'}
             >
               {muted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-amber" />}
+            </button>
+
+            <button
+              onClick={() => {
+                soundManager.playClick();
+                if (typeof window !== 'undefined') {
+                  window.location.hash = 'field-capture';
+                  if (window.history.pushState) window.history.pushState(null, '', '/field-capture');
+                }
+              }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber/15 border border-amber/40 text-amber hover:bg-amber/25 font-bold text-xs tracking-wider transition-all duration-200 shadow-amber-glow font-mono"
+              title="Open Offline Field Hazard PWA"
+            >
+              <Camera className="w-3.5 h-3.5" />
+              <span>Field PWA</span>
             </button>
 
             <button

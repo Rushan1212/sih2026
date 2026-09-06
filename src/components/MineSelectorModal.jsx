@@ -183,20 +183,20 @@ export default function MineSelectorModal({ isOpen, onClose, onSelectMine }) {
             </div>
 
             {/* View Switcher Tabs (Browse Registry vs Custom Form) */}
-            <div className="flex items-center gap-2 p-1.5 bg-black/40 rounded-2xl border border-white/[0.06] w-full max-w-md">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-1.5 bg-black/40 rounded-2xl border border-white/[0.06] w-full max-w-md">
               <button
                 onClick={() => {
                   soundManager.playHover();
                   setActiveTab('browse');
                 }}
-                className={`flex-1 py-2 px-3 rounded-xl text-xs font-mono font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+                className={`flex-1 py-2 px-3 rounded-xl text-[11px] sm:text-xs font-mono font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
                   activeTab === 'browse'
                     ? 'bg-amber text-coal font-bold shadow-[0_0_18px_rgba(245,166,35,0.3)]'
                     : 'text-dim hover:text-white hover:bg-white/[0.04]'
                 }`}
               >
                 <Building2 className="w-3.5 h-3.5" />
-                <span>Pre-Existing Mine Records</span>
+                <span>Pre-Existing Records</span>
               </button>
 
               <button
@@ -204,14 +204,14 @@ export default function MineSelectorModal({ isOpen, onClose, onSelectMine }) {
                   soundManager.playHover();
                   setActiveTab('custom');
                 }}
-                className={`flex-1 py-2 px-3 rounded-xl text-xs font-mono font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+                className={`flex-1 py-2 px-3 rounded-xl text-[11px] sm:text-xs font-mono font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
                   activeTab === 'custom'
                     ? 'bg-amber text-coal font-bold shadow-[0_0_18px_rgba(245,166,35,0.3)]'
                     : 'text-dim hover:text-white hover:bg-white/[0.04]'
                 }`}
               >
                 <PlusCircle className="w-3.5 h-3.5" />
-                <span>Add / Curate Custom Mine</span>
+                <span>Curate Custom Mine</span>
               </button>
             </div>
           </div>
