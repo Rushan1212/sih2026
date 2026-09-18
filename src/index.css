@@ -2,50 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Surface Strata */
+  --color-void:        #070708;  /* deepest, behind the canvas */
+  --color-bg:          #0d0e10;  /* page base — raw graphite, not tinted black */
+  --color-surface:     #16181c;  /* raised strata */
+  --color-surface-sub: #1c1f24;  /* elevated bench */
+  --color-line:        #24272d;  /* hairlines, seam dividers */
+
+  /* Neutral Readouts */
+  --color-text:        #edeef0;  /* primary high-contrast reading text */
+  --color-text-muted:  #8b9099;  /* technical telemetry, subheads */
+
+  /* Operational Data Semantics (STRICT) */
+  --color-accent:      #f5a524;  /* safety amber — the one loud voice */
+  --color-accent-soft: #ffd08a;
+  --color-verified:    #2fbf71;  /* used ONLY for closure/verified states */
+  --color-risk:        #e0523f;  /* used ONLY for risk/overdue states */
+}
+
 @layer base {
   html {
-    background-color: #0D0D0D;
-    color: #E8E6E1;
-    scroll-behavior: smooth;
+    background-color: var(--color-void);
+    color: var(--color-text);
   }
 
   body {
-    background-color: #0D0D0D;
-    color: #E8E6E1;
+    background-color: var(--color-bg);
+    color: var(--color-text);
     overflow-x: hidden;
     overflow-x: clip;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom slim scrollbar */
+  /* Custom slim industrial scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   ::-webkit-scrollbar-track {
-    background: #0D0D0D;
+    background: var(--color-void);
   }
   ::-webkit-scrollbar-thumb {
-    background: #2D3561;
-    border-radius: 4px;
+    background: var(--color-line);
+    border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #F5A623;
+    background: var(--color-accent);
+  }
+
+  /* Keyboard focus states */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
   }
 }
 
-/* Layer 2 Amber Grid Pattern (1px lines, 40px grid, opacity 8%, amber color) */
-.hero-amber-grid {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(245, 166, 35, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(245, 166, 35, 0.08) 1px, transparent 1px);
+/* Subtle Film Grain Noise Overlay */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Section Dot Grid (radial-gradient dots, 1px, amber 5%, 32px apart) */
-.dot-grid-amber {
+/* Strata Hairline Grid Background */
+.strata-grid {
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(36, 39, 45, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 39, 45, 0.45) 1px, transparent 1px);
+}
+
+/* Operational Dot Grid */
+.strata-dots {
   background-size: 32px 32px;
-  background-image: radial-gradient(circle, rgba(245, 166, 35, 0.05) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(circle, rgba(245, 165, 36, 0.08) 1.2px, transparent 1.2px);
 }
 
 /* Blinking terminal cursor */
@@ -58,30 +98,32 @@
   animation: cursorBlink 0.9s infinite;
 }
 
-/* Monitor bottom stand trapezoid */
-.monitor-stand-base {
-  clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+/* Infinite Kinetic Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
 
-/* 3D Antigravity Spatial Utilities */
-.perspective-1000 {
-  perspective: 1000px;
+.animate-marquee {
+  animation: marquee 30s linear infinite;
 }
 
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
+/* Hide native cursor ONLY when custom cursor JS has mounted and verified fine-pointer desktop */
+html.custom-cursor-active,
+html.custom-cursor-active body,
+html.custom-cursor-active a,
+html.custom-cursor-active button {
+  cursor: none !important;
 }
 
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
 }
