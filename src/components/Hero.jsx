@@ -164,13 +164,13 @@ export default function Hero({ onOpenDemo, onOpenVideo }) {
       <div className="max-w-5xl mx-auto text-center my-auto flex flex-col items-center relative z-10 w-full">
         
         {/* Subtle Spatial Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141418]/80 border border-amber/25 text-amber text-[11px] font-mono tracking-widest uppercase mb-6 shadow-amber-subtle">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#141418]/80 border border-amber/25 text-amber text-[11px] font-mono tracking-wider uppercase mb-6 shadow-amber-subtle">
           <span className="w-1.5 h-1.5 rounded-full bg-amber animate-pulse"></span>
           <span>AUTONOMOUS COAL GOVERNANCE PLATFORM</span>
         </div>
 
         {/* Single Large Headline - each word wrapped in span.word with overflow:hidden parent */}
-        <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-headline tracking-tight text-white uppercase leading-[0.95] mb-2">
+        <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter sm:tracking-[-0.03em] text-white uppercase leading-[0.88] mb-2">
           <span className="inline-block overflow-hidden py-1">
             <span className="word inline-block mr-3 sm:mr-5">Every</span>
           </span>
@@ -197,7 +197,7 @@ export default function Hero({ onOpenDemo, onOpenVideo }) {
         <div className="divider w-32 sm:w-48 h-[2px] bg-[#F5A623] my-6 origin-left shadow-[0_0_12px_rgba(245,166,35,0.45)]" />
 
         {/* Subheadline (max 12 words) */}
-        <p className="hero-sub text-lg sm:text-xl text-[#8A8A93] max-w-xl mx-auto font-light leading-relaxed mb-10">
+        <p className="hero-sub text-lg sm:text-xl text-neutral-400 max-w-xl mx-auto font-sans leading-relaxed mb-10">
           AI-powered compliance and continuous safety governance for India's coal mining sector.
         </p>
 

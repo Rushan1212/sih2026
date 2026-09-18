@@ -63,16 +63,16 @@ export default function ShowcaseHero({ onExplorePlatform, onOpenVideo, onNodeSel
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-8 lg:py-12 flex-1 flex flex-col lg:flex-row items-center justify-between gap-8">
         {/* Left Column: Oversized Dominant Typography & Quiet Body */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center space-y-6">
-          {/* Statutory Context Pill (JetBrains Mono for genuine regulation tag) */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xs bg-[#16181c]/90 border border-[#24272d] font-mono text-[11px] text-[#8b9099] w-fit">
+          {/* Statutory Context Pill (Crisp monospaced font, tracked out, uppercase tags) */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xs bg-[#16181c]/90 border border-[#24272d] font-mono text-[11px] text-neutral-400 tracking-wider uppercase w-fit shadow-xs">
             <Activity className="w-3.5 h-3.5 text-[#f5a524]" />
-            <span className="text-[#edeef0] font-semibold">DGMS CMR 2017</span>
+            <span className="text-[#edeef0] font-semibold tracking-wider">DGMS CMR 2017</span>
             <span className="text-[#24272d]">·</span>
-            <span>STATUTORY COMPLIANCE COCKPIT</span>
+            <span className="tracking-wider">STATUTORY COMPLIANCE COCKPIT</span>
           </div>
 
-          {/* Headline: Archivo Variable-Width Display (Oversized, tight tracking, tight leading) */}
-          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.4rem] font-black tracking-[-0.04em] leading-[0.92] text-[#edeef0] uppercase drop-shadow-md">
+          {/* Display Hero Title: Ultra-heavy, high-impact industrial font with tight tracking and crisp vertical cadence */}
+          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter sm:tracking-[-0.03em] leading-[0.88] sm:leading-[0.90] text-[#edeef0] uppercase drop-shadow-md select-none">
             Every Mine.<br />
             Every Rule.<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#edeef0] via-[#ffd08a] to-[#f5a524]">
@@ -80,16 +80,16 @@ export default function ShowcaseHero({ onExplorePlatform, onOpenVideo, onNodeSel
             </span>
           </h1>
 
-          {/* Body: Inter Tight (Quiet, generous leading, strictly under 70 characters measure) */}
-          <p className="font-sans text-sm sm:text-base text-[#8b9099] leading-relaxed max-w-[56ch]">
+          {/* Body Paragraph: Clean neutral sans-serif with high legibility at 14-16px, muted opacity (text-neutral-400), and generous leading-relaxed */}
+          <p className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed max-w-[56ch]">
             An intelligent governance platform for Indian coal excavation. Unifying daily manager rounds,
             contractor records, CCTV streams, and machinery logbooks into closed-loop statutory action — 
             turning data that already exists into compliance that actually happens.
           </p>
 
-          {/* Scale Anchor (Stakes established once in the opening) */}
-          <div className="p-3 bg-[#16181c]/70 border border-[#24272d] rounded-xs font-sans text-xs text-[#9ca3af] max-w-[56ch] flex items-center gap-3">
-            <div className="font-mono text-base font-black text-[#f5a524] shrink-0">
+          {/* Scale Anchor: Monospaced telemetry slug & muted body */}
+          <div className="p-3.5 bg-[#16181c]/70 border border-[#24272d] rounded-xs font-sans text-xs text-neutral-400 leading-relaxed max-w-[56ch] flex items-center gap-3">
+            <div className="font-mono text-base font-black text-[#f5a524] tracking-wider uppercase shrink-0">
               1,047 MT
             </div>
             <div>

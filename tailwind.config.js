@@ -34,16 +34,24 @@ export default {
         dim: '#8b9099',
       },
       fontFamily: {
-        display: ['"Archivo"', 'sans-serif'],
-        sans: ['"Inter Tight"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        display: ['"Chakra Petch"', '"Monument Extended"', '"Tusker Grotesk"', 'Impact', 'sans-serif'],
+        headline: ['"Chakra Petch"', '"Monument Extended"', '"Tusker Grotesk"', 'Impact', 'sans-serif'],
+        industrial: ['"Chakra Petch"', '"Monument Extended"', '"Tusker Grotesk"', 'Impact', 'sans-serif'],
+        sans: ['"Inter Tight"', '"Geist"', '"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"IBM Plex Mono"', 'Menlo', 'monospace'],
+        telemetry: ['"JetBrains Mono"', '"IBM Plex Mono"', 'monospace'],
       },
       lineHeight: {
-        'tight-display': '0.92',
+        'tight-display': '0.88',
+        'cadence': '0.92',
         'heading': '1.05',
+        'relaxed': '1.625',
       },
       letterSpacing: {
+        'tighter': '-0.03em',
         'tight-display': '-0.04em',
+        'wider': '0.05em',
+        'widest': '0.1em',
         'technical': '0.08em',
       },
       borderRadius: {
