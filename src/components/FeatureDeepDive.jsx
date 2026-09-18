@@ -90,6 +90,7 @@ export default function FeatureDeepDive() {
             y: 60,
             opacity: 0,
             scale: 0.95,
+            force3D: true,
           },
           {
             y: 0,
@@ -98,6 +99,7 @@ export default function FeatureDeepDive() {
             duration: 0.8,
             stagger: 0.12,
             ease: 'power2.out',
+            force3D: true,
             scrollTrigger: {
               trigger: gridRef.current,
               start: 'top 78%',
@@ -147,7 +149,7 @@ export default function FeatureDeepDive() {
               <div
                 key={module.id}
                 onMouseEnter={() => soundManager.playHover()}
-                className="feature-card glass-card rounded-2xl p-6 sm:p-8 border border-coal-700/80 hover:border-amber hover:shadow-amber-glow transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group relative overflow-hidden"
+                className="feature-card glass-card rounded-2xl p-6 sm:p-8 border border-coal-700/80 hover:border-amber hover:shadow-amber-glow transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group relative overflow-hidden will-change-transform gpu-composite"
               >
                 {/* Top Subtle Amber Line Accent */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber to-amber-electric opacity-0 group-hover:opacity-100 transition-opacity"></div>

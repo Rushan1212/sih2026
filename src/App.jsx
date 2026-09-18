@@ -13,6 +13,7 @@ import {
   normalizeRoute,
   setPostLoginRedirect,
 } from './middleware/authMiddleware';
+import { scrollToTop } from './hooks/useSmoothScroll';
 
 /**
  * Parses the current pathname and hash into a canonical application route.
@@ -190,7 +191,7 @@ function AppRouter() {
             window.history.pushState(null, '', '/login');
           } catch (e) {}
           window.location.hash = 'login';
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          scrollToTop();
         }
         return;
       }
@@ -203,7 +204,7 @@ function AppRouter() {
             window.history.pushState(null, '', fallback);
           } catch (e) {}
           window.location.hash = fallback.replace(/^\//, '');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          scrollToTop();
         }
         return;
       }
@@ -224,7 +225,7 @@ function AppRouter() {
         window.location.hash = targetRoute.replace(/^\//, '');
       }
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollToTop();
     }
   }, [isAuthenticated, role]);
 

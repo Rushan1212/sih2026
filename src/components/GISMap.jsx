@@ -30,13 +30,14 @@ export default function GISMap() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         mapContainerRef.current,
-        { opacity: 0, y: 40, scale: 0.98 },
+        { opacity: 0, y: 40, scale: 0.98, force3D: true },
         {
           opacity: 1,
           y: 0,
           scale: 1,
           duration: 1,
           ease: 'power3.out',
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',
@@ -68,19 +69,17 @@ export default function GISMap() {
             <span className="text-[#F5A623]">One command center.</span>
           </h2>
           <p className="text-[#8A8A93] text-sm sm:text-base leading-relaxed font-light">
-            CoalGuard integrates with every CIL subsidiary — CCL, BCCL, MCL, NCL, WCL, SECL, ECL, NEC — and all captive mining blocks. Real-time from every pit.
+            Every opencast pit and underground seam in India visualized in real time. Continuous statutory reporting from field officers directly into central DGMS dashboard.
           </p>
 
-          <div className="pt-4 border-t border-[#26262E] space-y-3">
-            <div className="text-xs font-mono text-[#8A8A93] uppercase tracking-wider">
-              COVERED BASINS:
+          <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="p-4 rounded-xl bg-[#141418] border border-[#26262E]">
+              <div className="font-headline text-3xl text-amber">12</div>
+              <div className="text-xs text-[#8A8A93] font-mono uppercase mt-1">Subsidiaries</div>
             </div>
-            <div className="flex flex-wrap gap-2 text-xs font-mono text-[#F5A623]">
-              <span className="px-2.5 py-1 bg-[#141418] border border-[#2A2A34] rounded">Damodar Valley</span>
-              <span className="px-2.5 py-1 bg-[#141418] border border-[#2A2A34] rounded">Son Valley</span>
-              <span className="px-2.5 py-1 bg-[#141418] border border-[#2A2A34] rounded">Mahanadi Basin</span>
-              <span className="px-2.5 py-1 bg-[#141418] border border-[#2A2A34] rounded">Wardha Valley</span>
-              <span className="px-2.5 py-1 bg-[#141418] border border-[#2A2A34] rounded">Godavari Basin</span>
+            <div className="p-4 rounded-xl bg-[#141418] border border-[#26262E]">
+              <div className="font-headline text-3xl text-emerald-400">100%</div>
+              <div className="text-xs text-[#8A8A93] font-mono uppercase mt-1">Digitized Logs</div>
             </div>
           </div>
 
@@ -103,7 +102,7 @@ export default function GISMap() {
         {/* Right Side: Flat SVG Map with Pulsing Dots and Connecting Lines */}
         <div 
           ref={mapContainerRef} 
-          className="lg:col-span-7 glass-card-dark p-6 sm:p-10 border-l-4 border-amber relative shadow-floating rounded-2xl flex flex-col items-center"
+          className="lg:col-span-7 glass-card-dark p-6 sm:p-10 border-l-4 border-amber relative shadow-floating rounded-2xl flex flex-col items-center will-change-transform gpu-composite"
         >
           <svg 
             viewBox="120 90 620 600" 

@@ -159,12 +159,13 @@ export default function GISMapPreview() {
       if (paths && dots) {
         gsap.fromTo(
           paths,
-          { strokeDashoffset: 1000, opacity: 0 },
+          { strokeDashoffset: 1000, opacity: 0, force3D: true },
           {
             strokeDashoffset: 0,
             opacity: 0.8,
             duration: 1.8,
             ease: 'power2.inOut',
+            force3D: true,
             scrollTrigger: {
               trigger: sectionRef.current,
               start: 'top 70%',
@@ -174,13 +175,14 @@ export default function GISMapPreview() {
 
         gsap.fromTo(
           dots,
-          { scale: 0, opacity: 0 },
+          { scale: 0, opacity: 0, force3D: true },
           {
             scale: 1,
             opacity: 1,
             duration: 0.6,
             stagger: 0.08,
             ease: 'back.out(2)',
+            force3D: true,
             scrollTrigger: {
               trigger: sectionRef.current,
               start: 'top 70%',

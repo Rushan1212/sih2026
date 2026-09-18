@@ -137,7 +137,7 @@ export default function StatsBlueprint() {
             return (
               <div
                 key={idx}
-                className="glass-card rounded-2xl p-6 sm:p-8 border border-coal-700/80 hover:border-amber/60 flex flex-col justify-between relative group transition-all duration-300 hover:-translate-y-1 shadow-xl"
+                className="glass-card rounded-2xl p-6 sm:p-8 border border-coal-700/80 hover:border-amber/60 flex flex-col justify-between relative group transition-all duration-300 hover:-translate-y-1 shadow-xl will-change-transform gpu-composite"
               >
                 {/* HUD Reticle */}
                 <div className="absolute top-2 right-2 text-coal-600 group-hover:text-amber transition-colors font-mono text-[10px]">

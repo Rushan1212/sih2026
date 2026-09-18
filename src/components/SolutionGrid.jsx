@@ -55,13 +55,14 @@ export default function SolutionGrid() {
       if (cards && cards.length > 0) {
         gsap.fromTo(
           cards,
-          { y: 50, opacity: 0 },
+          { y: 50, opacity: 0, force3D: true },
           {
             y: 0,
             opacity: 1,
             duration: 0.7,
             stagger: 0.15,
             ease: 'power2.out',
+            force3D: true,
             scrollTrigger: {
               trigger: gridRef.current,
               start: 'top 80%',
@@ -79,18 +80,18 @@ export default function SolutionGrid() {
     <section 
       id="platform"
       ref={sectionRef} 
-      className="py-32 px-6 bg-[#0D0D0D] border-t border-[#F5A623]/20"
+      className="py-32 bg-[#0D0D0D] text-white border-t border-[#242424] relative overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto px-6">
         
-        {/* Header */}
+        {/* Section Header */}
         <div className="max-w-2xl mb-20">
-          <div className="text-xs uppercase tracking-widest text-[#F5A623] font-bold mb-3">
-            The Solution
-          </div>
+          <span className="font-mono text-xs uppercase tracking-widest text-[#F5A623] block mb-3">
+            THE PLATFORM
+          </span>
           <h2 className="text-4xl sm:text-6xl font-headline tracking-tight uppercase leading-[0.95] text-white">
-            Comprehensive <br />
-            <span className="text-[#F5A623]">Platform Governance.</span>
+            Six Pillars of <br />
+            Intelligent Compliance
           </h2>
           <p className="text-[#8A8A8A] text-base font-light mt-4">
             A unified operating system engineered specifically for the regulatory, environmental, and physical safety demands of Indian coal mining.
@@ -104,7 +105,7 @@ export default function SolutionGrid() {
             return (
               <div
                 key={idx}
-                className="solution-card coal-card p-8 bg-[#161616] border-l-2 border-[#F5A623] flex flex-col justify-between"
+                className="solution-card coal-card p-8 bg-[#161616] border-l-2 border-[#F5A623] flex flex-col justify-between will-change-transform gpu-composite"
               >
                 <div>
                   <div className="w-10 h-10 bg-[#0D0D0D] border border-[#242424] flex items-center justify-center text-[#F5A623] mb-6">

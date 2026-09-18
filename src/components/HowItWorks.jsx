@@ -46,6 +46,7 @@ export default function HowItWorks() {
         gsap.to(linePathRef.current, {
           strokeDashoffset: 0,
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 60%',
@@ -66,6 +67,7 @@ export default function HowItWorks() {
             x: isEven ? -60 : 60,
             opacity: 0,
             scale: 0.96,
+            force3D: true,
           },
           {
             x: 0,
@@ -73,6 +75,7 @@ export default function HowItWorks() {
             scale: 1,
             duration: 0.9,
             ease: 'power3.out',
+            force3D: true,
             scrollTrigger: {
               trigger: el,
               start: 'top 80%',
@@ -145,7 +148,7 @@ export default function HowItWorks() {
                 >
                   <div
                     ref={(el) => (stepCardsRef.current[idx] = el)}
-                    className="w-full md:w-[calc(50%-40px)] glass-card-dark p-8 sm:p-10 border-l-4 border-amber rounded-2xl relative overflow-hidden shadow-floating group"
+                    className="w-full md:w-[calc(50%-40px)] glass-card-dark p-8 sm:p-10 border-l-4 border-amber rounded-2xl relative overflow-hidden shadow-floating group will-change-transform gpu-composite"
                   >
                     {/* Bebas Neue watermark behind text with opacity: 0.06 */}
                     <span 

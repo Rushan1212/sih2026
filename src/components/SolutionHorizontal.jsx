@@ -135,6 +135,7 @@ export default function SolutionHorizontal() {
       const tween = gsap.to(track, {
         x: () => -getScrollAmount(),
         ease: 'none',
+        force3D: true,
         scrollTrigger: {
           trigger: triggerRef.current,
           start: 'top top',
@@ -186,14 +187,14 @@ export default function SolutionHorizontal() {
         <div className="relative w-full overflow-hidden flex-1 flex items-center my-auto">
           <div 
             ref={trackRef} 
-            className="flex gap-8 px-8 sm:px-16 w-max will-change-transform py-4"
+            className="flex gap-8 px-8 sm:px-16 w-max will-change-transform gpu-accelerated py-4"
           >
             {solutionPanels.map((panel, idx) => {
               const Icon = panel.icon;
               return (
                 <div
                   key={panel.id}
-                  className="w-[85vw] sm:w-[620px] lg:w-[680px] h-[480px] glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative border border-coal-700/80 hover:border-amber/60 transition-all group overflow-hidden"
+                  className="w-[85vw] sm:w-[620px] lg:w-[680px] h-[480px] glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between relative border border-coal-700/80 hover:border-amber/60 transition-all group overflow-hidden will-change-transform gpu-composite"
                 >
                   {/* Glowing Top Border Accent */}
                   <div 

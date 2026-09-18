@@ -80,10 +80,11 @@ export default function HowItWorksTimeline() {
       if (lineRef.current) {
         gsap.fromTo(
           lineRef.current,
-          { scaleY: 0 },
+          { scaleY: 0, force3D: true },
           {
             scaleY: 1,
             ease: 'none',
+            force3D: true,
             scrollTrigger: {
               trigger: sectionRef.current,
               start: 'top 60%',
@@ -105,6 +106,7 @@ export default function HowItWorksTimeline() {
             x: isEven ? -60 : 60,
             opacity: 0,
             rotateY: isEven ? -8 : 8,
+            force3D: true,
           },
           {
             x: 0,
@@ -112,6 +114,7 @@ export default function HowItWorksTimeline() {
             rotateY: 0,
             duration: 0.9,
             ease: 'power2.out',
+            force3D: true,
             scrollTrigger: {
               trigger: card,
               start: 'top 80%',
@@ -178,7 +181,7 @@ export default function HowItWorksTimeline() {
                   {/* Step Content Card */}
                   <div 
                     ref={(el) => (stepsRef.current[idx] = el)}
-                    className="w-full md:w-[calc(50%-40px)] glass-card p-6 sm:p-8 rounded-2xl border border-coal-700/80 hover:border-amber/50 relative shadow-2xl group transition-all"
+                    className="w-full md:w-[calc(50%-40px)] glass-card p-6 sm:p-8 rounded-2xl border border-coal-700/80 hover:border-amber/50 relative shadow-2xl group transition-all will-change-transform gpu-composite"
                   >
                     {/* Glowing Top Border */}
                     <div 

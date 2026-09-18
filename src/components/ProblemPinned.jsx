@@ -59,9 +59,9 @@ export default function ProblemPinned() {
       const cards = cardsRef.current.filter(Boolean);
       if (cards.length === 0) return;
 
-      // Initial card states in 3D spatial space
-      gsap.set(cards, { xPercent: 100, opacity: 0, rotateY: 15, scale: 0.95 });
-      gsap.set(cards[0], { xPercent: 0, opacity: 1, rotateY: 0, scale: 1 });
+      // Initial card states in 3D spatial space (hardware accelerated)
+      gsap.set(cards, { xPercent: 100, opacity: 0, rotateY: 15, scale: 0.95, force3D: true });
+      gsap.set(cards[0], { xPercent: 0, opacity: 1, rotateY: 0, scale: 1, force3D: true });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -85,12 +85,13 @@ export default function ProblemPinned() {
           rotateY: -15,
           scale: 0.95,
           duration: 0.8,
+          force3D: true,
           ease: "power2.inOut"
         }, `step-${i}`)
         // Slide in current card from right
         .fromTo(card, 
-          { xPercent: 100, opacity: 0, rotateY: 15, scale: 0.95 },
-          { xPercent: 0, opacity: 1, rotateY: 0, scale: 1, duration: 0.8, ease: "power2.inOut" },
+          { xPercent: 100, opacity: 0, rotateY: 15, scale: 0.95, force3D: true },
+          { xPercent: 0, opacity: 1, rotateY: 0, scale: 1, duration: 0.8, force3D: true, ease: "power2.inOut" },
           `step-${i}`
         );
       });
@@ -139,14 +140,18 @@ export default function ProblemPinned() {
         </div>
 
         {/* Right Side (60%): 5 Swapping Spatial Glass Cards */}
-        <div className="lg:col-span-7 relative h-[380px] sm:h-[340px] flex items-center justify-center perspective-1200 overflow-hidden">
+        <div 
+          className="lg:col-span-7 relative h-[380px] sm:h-[340px] flex items-center justify-center overflow-hidden gpu-accelerated"
+          style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
+        >
           {cardsData.map((card, idx) => {
             const Icon = card.icon;
             return (
               <div
                 key={card.number}
                 ref={(el) => (cardsRef.current[idx] = el)}
-                className="absolute inset-0 w-full h-full glass-card-dark p-8 sm:p-10 border-l-4 border-amber flex flex-col justify-between shadow-floating rounded-xl"
+                className="absolute inset-0 w-full h-full glass-card-dark p-8 sm:p-10 border-l-4 border-amber flex flex-col justify-between shadow-floating rounded-xl will-change-transform gpu-composite"
+                style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
               >
                 {/* Top: Icon + Number + Tag */}
                 <div className="flex items-start justify-between">

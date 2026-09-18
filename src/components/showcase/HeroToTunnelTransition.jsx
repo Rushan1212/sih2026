@@ -49,10 +49,10 @@ export default function HeroToTunnelTransition() {
 
       triggerRef.current = tl.scrollTrigger;
 
-      tl.to(layer1Ref.current, { yPercent: -70, ease: 'none' }, 0)
-        .to(layer2Ref.current, { yPercent: -55, ease: 'none' }, 0)
-        .to(layer3Ref.current, { yPercent: -40, ease: 'none' }, 0)
-        .to(layer4Ref.current, { yPercent: -10, scale: 1.08, ease: 'none' }, 0);
+      tl.to(layer1Ref.current, { yPercent: -70, ease: 'none', force3D: true }, 0)
+        .to(layer2Ref.current, { yPercent: -55, ease: 'none', force3D: true }, 0)
+        .to(layer3Ref.current, { yPercent: -40, ease: 'none', force3D: true }, 0)
+        .to(layer4Ref.current, { yPercent: -10, scale: 1.08, ease: 'none', force3D: true }, 0);
     }, container);
 
     return () => {

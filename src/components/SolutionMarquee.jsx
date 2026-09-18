@@ -73,7 +73,7 @@ export default function SolutionMarquee() {
       if (cardEls && cardEls.length > 0) {
         gsap.fromTo(
           cardEls,
-          { y: 60, opacity: 0, scale: 0.95 },
+          { y: 60, opacity: 0, scale: 0.95, force3D: true },
           {
             y: 0,
             opacity: 1,
@@ -81,6 +81,7 @@ export default function SolutionMarquee() {
             duration: 0.8,
             stagger: 0.12,
             ease: 'power3.out',
+            force3D: true,
             scrollTrigger: {
               trigger: gridRef.current,
               start: 'top 80%',
@@ -98,11 +99,10 @@ export default function SolutionMarquee() {
     <section 
       id="platform"
       ref={sectionRef} 
-      className="py-32 bg-[#0B0B0D] text-white border-t border-amber/20 relative overflow-hidden"
+      className="relative bg-[#0B0B0D] text-white py-20 border-t border-amber/20 overflow-hidden"
     >
-      {/* Background Spatial Grid */}
-      <div className="absolute inset-0 bg-spatial-grid opacity-25 pointer-events-none" />
-      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-amber/5 blur-[150px] pointer-events-none rounded-full" />
+      {/* Background radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber/5 blur-[160px] pointer-events-none rounded-full" />
 
       <div className="max-w-6xl mx-auto px-6 mb-16 relative z-10">
         <div className="max-w-2xl">
@@ -118,7 +118,7 @@ export default function SolutionMarquee() {
 
       {/* Infinite Horizontal Marquee */}
       <div className="w-full overflow-hidden py-4 border-y border-[#26262E] bg-[#0B0B0D] mb-20 select-none relative z-10">
-        <div className="animate-marquee flex items-center gap-6">
+        <div className="animate-marquee flex items-center gap-6 will-change-transform gpu-layer">
           {[...marqueeTags, ...marqueeTags, ...marqueeTags].map((tag, idx) => (
             <div
               key={idx}
@@ -139,7 +139,7 @@ export default function SolutionMarquee() {
             return (
               <div
                 key={idx}
-                className="solution-card glass-card-dark p-8 rounded-xl flex flex-col justify-between group"
+                className="solution-card glass-card-dark p-8 rounded-xl flex flex-col justify-between group will-change-transform gpu-composite"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">

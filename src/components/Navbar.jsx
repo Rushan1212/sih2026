@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { soundManager } from '../utils/sound';
+import { scrollToTop } from '../hooks/useSmoothScroll';
 
 export default function Navbar({ onOpenDemo, onExplorePlatform, onNavigate }) {
   const [scrolled, setScrolled] = useState(false);
@@ -210,7 +211,7 @@ export default function Navbar({ onOpenDemo, onExplorePlatform, onNavigate }) {
           onClick={(e) => {
             e.preventDefault();
             soundManager.playClick();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            scrollToTop();
           }}
           className="flex items-center gap-2.5 group flex-shrink-0"
         >

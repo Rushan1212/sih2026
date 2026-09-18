@@ -416,6 +416,7 @@ export default function TunnelScrollytelling({ onExplorePlatform, onOpenVideo })
       frame: endFrame,
       duration: 0.9,
       ease: 'power3.out',
+      force3D: true,
       onComplete: () => {
         frameProxyRef.current.frame = endFrame;
         drawFrameBitmap(endFrame);
@@ -588,14 +589,14 @@ export default function TunnelScrollytelling({ onExplorePlatform, onOpenVideo })
       {/* Pinned Viewport Container (100vh) */}
       <div
         ref={pinWrapperRef}
-        className="relative w-full h-screen overflow-hidden flex flex-col justify-between"
-        style={{ willChange: 'transform' }}
+        className="relative w-full h-screen overflow-hidden flex flex-col justify-between will-change-transform gpu-accelerated"
+        style={{ transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden', willChange: 'transform' }}
       >
         {/* Full-Bleed Canvas Frame Scrubbing (Promoted to own compositor layer) */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          style={{ transform: 'translateZ(0)', willChange: 'transform' }}
+          className="absolute inset-0 w-full h-full object-cover z-0 gpu-layer"
+          style={{ transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden', willChange: 'transform' }}
         />
 
         {/* Brand Amber Warmth Grading & Vignette (Warms cold grey source + masks watermark) */}
@@ -694,12 +695,14 @@ export default function TunnelScrollytelling({ onExplorePlatform, onOpenVideo })
             >
               {/* Wall-Mounted Statutory Plate / Inspection Board */}
               <div
-                className={`relative p-6 sm:p-8 rounded-[2px] shadow-2xl space-y-4 pointer-events-auto border transition-all duration-300 ${currentLayout.cardWidth} ${
+                className={`relative p-6 sm:p-8 rounded-[2px] shadow-2xl space-y-4 pointer-events-auto border transition-all duration-300 will-change-transform gpu-composite ${currentLayout.cardWidth} ${
                   isVerified
                     ? 'border-[#2fbf71]/40 border-t-2 border-t-[#2fbf71]'
                     : 'border-[#f5a524]/40 border-t-2 border-t-[#f5a524]'
                 }`}
                 style={{
+                  transform: 'translate3d(0, 0, 0)',
+                  backfaceVisibility: 'hidden',
                   background: currentLayout.scrimGradient,
                   backdropFilter: 'blur(12px) saturate(0.8)',
                   WebkitBackdropFilter: 'blur(12px) saturate(0.8)',

@@ -119,6 +119,7 @@ export default function ShowcaseTheLoop() {
       gsap.to(track, {
         x: -scrollWidth,
         ease: 'none',
+        force3D: true,
         scrollTrigger: {
           trigger: container,
           start: 'top top',
@@ -207,7 +208,7 @@ export default function ShowcaseTheLoop() {
       <div className="w-full overflow-x-auto lg:overflow-visible py-8 no-scrollbar">
         <div
           ref={trackRef}
-          className="flex items-stretch gap-6 px-6 md:px-12 w-max min-w-full"
+          className="flex items-stretch gap-6 px-6 md:px-12 w-max min-w-full will-change-transform gpu-accelerated"
         >
           {STAGES.map((stage, idx) => {
             const Icon = stage.icon;
@@ -226,7 +227,7 @@ export default function ShowcaseTheLoop() {
                     handleStepClick(idx);
                   }
                 }}
-                className={`w-[320px] sm:w-[380px] p-8 rounded-sm transition-all duration-300 flex flex-col justify-between cursor-pointer border ${
+                className={`w-[320px] sm:w-[380px] p-8 rounded-sm transition-all duration-300 flex flex-col justify-between cursor-pointer border will-change-transform gpu-composite ${
                   isActive
                     ? 'bg-[#16181c] border-[#f5a524] shadow-[0_0_40px_rgba(245,165,36,0.15)] scale-[1.02]'
                     : 'bg-[#0d0e10] border-[#24272d] hover:border-[#8b9099]/40 opacity-75 hover:opacity-100'

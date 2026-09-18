@@ -14,12 +14,13 @@ export default function FinalCTA({ onOpenDemo }) {
       // Headline and button scale from 0.9 -> 1, opacity 0 -> 1 on scroll
       gsap.fromTo(
         contentRef.current,
-        { scale: 0.9, opacity: 0 },
+        { scale: 0.9, opacity: 0, force3D: true },
         {
           scale: 1,
           opacity: 1,
           duration: 1,
           ease: 'power3.out',
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 80%',

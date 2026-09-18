@@ -70,6 +70,7 @@ export default function Metrics() {
         duration: 0.9,
         stagger: 0.1,
         ease: "power3.out",
+        force3D: true,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 80%',
@@ -84,14 +85,15 @@ export default function Metrics() {
 
   return (
     <section 
+      id="metrics" 
       ref={sectionRef} 
-      className="min-h-screen bg-[#0B0B0D] flex items-center justify-center py-28 px-6 border-t border-amber/20 relative overflow-hidden"
+      className="min-h-screen w-full bg-[#0B0B0D] text-white flex items-center justify-center px-6 sm:px-12 border-t border-amber/20 relative overflow-hidden py-24"
     >
-      {/* Very subtle amber radial gradient glow at center */}
+      {/* Background Ambience */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[550px] pointer-events-none rounded-full"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] opacity-20 pointer-events-none rounded-full blur-[160px]"
         style={{
-          background: 'radial-gradient(circle, rgba(245, 166, 35, 0.05) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, #F5A623 0%, rgba(245, 166, 35, 0.1) 60%, transparent 100%)',
         }}
       />
       <div className="absolute inset-0 bg-spatial-grid opacity-20 pointer-events-none" />
@@ -102,7 +104,7 @@ export default function Metrics() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 text-center md:text-left">
           
           {/* Stat 1: 542+ */}
-          <div className="metric-card glass-card-dark p-8 sm:p-10 rounded-2xl border-l-4 border-amber shadow-antigravity group">
+          <div className="metric-card glass-card-dark p-8 sm:p-10 rounded-2xl border-l-4 border-amber shadow-antigravity group will-change-transform gpu-composite">
             <div className="font-headline text-7xl sm:text-8xl lg:text-[120px] font-bold text-amber tracking-tight leading-none group-hover:scale-105 transition-transform duration-300 origin-left">
               <span ref={num1Ref}>0</span>+
             </div>
@@ -112,7 +114,7 @@ export default function Metrics() {
           </div>
 
           {/* Stat 2: 98.2% */}
-          <div className="metric-card glass-card-dark p-8 sm:p-10 rounded-2xl border-l-4 border-amber shadow-antigravity group">
+          <div className="metric-card glass-card-dark p-8 sm:p-10 rounded-2xl border-l-4 border-amber shadow-antigravity group will-change-transform gpu-composite">
             <div className="font-headline text-7xl sm:text-8xl lg:text-[120px] font-bold text-amber tracking-tight leading-none group-hover:scale-105 transition-transform duration-300 origin-left">
               <span ref={num2Ref}>0.0</span>%
             </div>
@@ -122,17 +124,17 @@ export default function Metrics() {
           </div>
 
           {/* Stat 3: 60% */}
-          <div className="metric-card glass-card-dark p-8 sm:p-10 rounded-2xl border-l-4 border-amber shadow-antigravity group">
+          <div className="metric-card glass-card-dark p-8 sm:p-10 rounded-2xl border-l-4 border-amber shadow-antigravity group will-change-transform gpu-composite">
             <div className="font-headline text-7xl sm:text-8xl lg:text-[120px] font-bold text-amber tracking-tight leading-none group-hover:scale-105 transition-transform duration-300 origin-left">
               <span ref={num3Ref}>0</span>%
             </div>
-            <div className="font-sans text-sm text-[#8A8A8A] uppercase tracking-wider font-medium pt-3 group-hover:text-white transition-colors">
-              Reduction in Reporting Delay
+            <div className="font-sans text-sm text-[#8A8A93] uppercase tracking-wider font-medium pt-3 group-hover:text-white transition-colors">
+              Reduction in Incident Reporting Lag
             </div>
           </div>
 
           {/* Stat 4: < 2hrs */}
-          <div className="metric-card glass-card-dark p-8 sm:p-10 rounded-2xl border-l-4 border-amber shadow-antigravity group">
+          <div className="metric-card glass-card-dark p-8 sm:p-10 rounded-2xl border-l-4 border-amber shadow-antigravity group will-change-transform gpu-composite">
             <div className="font-headline text-7xl sm:text-8xl lg:text-[120px] font-bold text-amber tracking-tight leading-none group-hover:scale-105 transition-transform duration-300 origin-left">
               &lt; 2hrs
             </div>

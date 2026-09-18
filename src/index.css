@@ -103,14 +103,73 @@
   animation: cursorBlink 0.9s infinite;
 }
 
-/* Infinite Kinetic Marquee */
+/* Lenis Smooth Scroll Configuration */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* GPU Hardware Acceleration & Layer Promotion Utilities */
+.gpu-accelerated,
+.hardware-accelerated,
+.will-change-transform {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.gpu-layer {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+.gpu-composite {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
+  contain: layout style paint;
+}
+
+/* Infinite Kinetic Marquee (Hardware Accelerated 3D Translation) */
 @keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0%, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 .animate-marquee {
   animation: marquee 30s linear infinite;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* Hide native cursor ONLY when custom cursor JS has mounted and verified fine-pointer desktop */

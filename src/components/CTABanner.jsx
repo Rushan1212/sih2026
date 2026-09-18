@@ -27,13 +27,14 @@ export default function CTABanner({ onOpenDemo, onOpenSimulator }) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         contentRef.current,
-        { scale: 0.92, opacity: 0, y: 50 },
+        { scale: 0.92, opacity: 0, y: 50, force3D: true },
         {
           scale: 1,
           opacity: 1,
           y: 0,
           duration: 1,
           ease: 'power3.out',
+          force3D: true,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 75%',
